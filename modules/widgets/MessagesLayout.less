@@ -1,0 +1,26 @@
+@padding: .5em;
+
+.oo-ui-MessagesLayout {
+  & > .notification {
+    position: relative;
+    bottom: 22px;
+    height: 0;
+    margin: auto;
+    & > span {
+      padding: .5em;
+      border-radius: .8em;
+      color: lawngreen;
+      background-color: #687F79;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+
+  .livechat-MessageInput {
+    padding-top: @padding;
+  }
+
+  .livechat-titleElement {
+    padding-bottom: @padding;
+  }
+}

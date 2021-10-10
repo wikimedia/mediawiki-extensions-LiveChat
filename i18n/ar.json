@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+		]
+	},
+	"livechat": "دردشة مباشرة",
+	"ext-livechat-no-messages": "لا رسائل",
+	"ext-livechat-messageinput-button-send": "أرسل",
+	"ext-livechat-messageinput-placeholder": "أدخِل رسالة",
+	"ext-livechat-new-comment-notification": "{{PLURAL:$1||تعليق جديد|تعليقات جديدة ($1)}}",
+	"ext-livechat-reaction-like": "اعجاب",
+	"ext-livechat-login-to-post-comments": "قم بالولوج لكي تتمكن من التعليق والتفاعل",
+	"ext-livechat-error-user-cannot-post-comments": "لا يمكنك إرسال الرسائل"
+}

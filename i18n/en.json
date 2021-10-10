@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+		]
+	},
+	"livechat": "LiveChat",
+	"livestatus": "LiveStatus",
+	"ext-livechat-no-messages": "No messages",
+	"ext-livechat-messageinput-button-send": "Send",
+	"ext-livechat-messageinput-placeholder": "Enter message",
+	"ext-livechat-new-comment-notification": "New {{PLURAL:$1|comment|comments ($1)}}",
+	"ext-livechat-reaction-like": "like",
+	"ext-livechat-login-to-post-comments": "Please login to be able to post comments",
+	"ext-livechat-error-user-cannot-post-comments": "You cannot send messages to this chat",
+	"ext-livechat-error-user-cannot-post-reactions": "You cannot send reactions to this chat"
+}

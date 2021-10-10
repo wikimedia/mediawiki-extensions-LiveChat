@@ -1,0 +1,28 @@
+@import 'mediawiki.mixins';
+
+.livechat-splitLayout {
+	display: flex;
+	> * {
+/*		display: table-cell;
+		vertical-align: top;*/
+		border-left: 1px solid #aaaaaa;
+		border-right: 1px solid #aaaaaa;
+		width: 50%;
+	}
+
+	> .ui-resizable {
+		flex: none;
+	}
+
+	> :first-child {
+		border-left: none;
+	}
+
+	> :last-child {
+		border-right: none;
+	}
+
+	.ui-resizable-handle {
+		cursor: col-resize;
+	}
+}

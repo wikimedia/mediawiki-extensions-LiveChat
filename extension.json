@@ -1,0 +1,263 @@
+{
+	"name": "LiveChat",
+	"version": "0.1",
+	"author": "[https://www.mediawiki.org/wiki/User:Pastakhov Pavel Astakhov]",
+	"description": "The LiveChat extension",
+	"type": "other",
+	"MessagesDirs": {
+		"LiveChat": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"LiveChatAlias": "LiveChat.alias.php"
+	},
+	"AvailableRights": [
+		"LiveChatManager"
+	],
+	"GroupPermissions": {
+		"sysop": {
+			"LiveChatManager": true
+		}
+	},
+	"Hooks": {
+		"BeforePageDisplay": "LiveChatHooks::onBeforePageDisplay",
+		"LiveChatConnected": "LiveChatHooks::onLiveChatConnected",
+		"LiveChatStorageInit": "LiveChatHooks::onLiveChatStorageInit",
+		"MakeGlobalVariablesScript": "LiveChatHooks::onMakeGlobalVariablesScript",
+		"LoadExtensionSchemaUpdates": "LiveChatHooks::onLoadExtensionSchemaUpdates"
+	},
+	"AutoloadClasses": {
+		"LiveChatHooks": "includes/LiveChatHooks.php",
+		"LiveChat\\Worker": "includes/Worker.php",
+		"LiveChat\\Storage": "includes/Storage.php",
+		"LiveChat\\Manager": "includes/Manager.php",
+		"LiveChat\\Connection": "includes/Connection.php",
+		"LiveChat\\MessageParser": "includes/MessageParser.php",
+		"LiveChat\\Reactions": "includes/Reactions.php",
+		"LiveChat\\Room": "includes/Room.php",
+		"LiveChat\\ChatData": "includes/ChatData.php",
+		"LiveChat\\ChatRoom": "includes/ChatRoom.php",
+		"LiveChat\\ManagerRoom": "includes/ManagerRoom.php",
+		"LiveChat\\SpecialLiveChat": "includes/specials/SpecialLiveChat.php",
+		"LiveChat\\SpecialLiveStatus": "includes/specials/SpecialLiveStatus.php",
+		"LiveChat\\Tools": "includes/Tools.php"
+	},
+	"SpecialPages": {
+		"LiveChat": "LiveChat\\SpecialLiveChat",
+		"LiveStatus": "LiveChat\\SpecialLiveStatus"
+	},
+	"ResourceModules": {
+		"ext.LiveChat.client": {
+			"scripts": "client.js",
+			"dependencies": [
+				"mediawiki.Uri",
+				"jquery.throttle-debounce",
+				"ext.LiveChat.visibilityjs"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.special.LiveStatus": {
+			"scripts": "special.livestatus.js",
+			"dependencies": [
+				"ext.LiveChat.special.RoomListLayout"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.special.RoomListLayout": {
+			"scripts": "widgets/RoomListLayout.js",
+			"dependencies": [
+				"ext.LiveChat.client",
+				"ext.LiveChat.widgets.ItemsLayout"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.special.LiveChat": {
+			"scripts": "special.livechat.js",
+			"dependencies": [
+				"ext.LiveChat.client",
+				"ext.LiveChat.widgets.SplitLayout",
+				"ext.LiveChat.widgets.LiveChatLayout"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.visibilityjs": {
+			"scripts": [
+				"lib/visibilityjs/lib/visibility.core.js"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets": {
+			"scripts": "widgets/widgets.js",
+			"dependencies": [
+				"oojs-ui",
+				"mediawiki.api"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.ItemsLayout": {
+			"scripts": "widgets/ItemsLayout.js",
+			"styles": "widgets/ItemsLayout.less",
+			"dependencies": [
+				"ext.LiveChat.widgets"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.SplitLayout": {
+			"scripts": "widgets/SplitLayout.js",
+			"styles": "widgets/SplitLayout.less",
+			"dependencies": [
+				"jquery.ui.resizable",
+				"ext.LiveChat.widgets"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.LiveChatLayout": {
+			"scripts": "widgets/LiveChatLayout.js",
+			"styles": "widgets/LiveChatLayout.less",
+			"dependencies": [
+				"ext.LiveChat.widgets.MessagesLayout"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.MessagesLayout": {
+			"scripts": "widgets/MessagesLayout.js",
+			"styles": "widgets/MessagesLayout.less",
+			"dependencies": [
+				"ext.LiveChat.client",
+				"ext.LiveChat.widgets.ItemsLayout",
+				"ext.LiveChat.widgets.MessageInput",
+				"ext.LiveChat.widgets.Message"
+			],
+			"messages": [
+				"ext-livechat-new-comment-notification",
+				"ext-livechat-no-messages"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.Message": {
+			"scripts": "widgets/Message.js",
+			"styles": "widgets/Message.less",
+			"dependencies": [
+				"ext.LiveChat.widgets.ButtonWidget",
+				"ext.LiveChat.widgets.IconWidget",
+				"oojs-ui.styles.icons-user"
+			],
+			"messages": [
+				"ext-livechat-reaction-like"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.MessageInput": {
+			"scripts": "widgets/MessageInput.js",
+			"styles": "widgets/MessageInput.less",
+			"dependencies": [
+				"ext.LiveChat.widgets",
+				"mediawiki.notify"
+			],
+			"messages": [
+				"ext-livechat-messageinput-button-send",
+				"ext-livechat-messageinput-placeholder",
+				"ext-livechat-login-to-post-comments"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.mixin.IconElement": {
+			"scripts": "widgets/mixin/IconElement.js",
+			"dependencies": [
+				"ext.LiveChat.fontawesome",
+				"ext.LiveChat.widgets"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.ButtonWidget": {
+			"scripts": "widgets/ButtonWidget.js",
+			"styles": "widgets/ButtonWidget.less",
+			"dependencies": [
+				"ext.LiveChat.mixin.IconElement"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.widgets.IconWidget": {
+			"scripts": "widgets/IconWidget.js",
+			"dependencies": [
+				"ext.LiveChat.mixin.IconElement"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.LiveChat.fontawesome": {
+			"styles": "lib/fontawesome/css/all.css",
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "LiveChat/modules"
+	},
+	"config": {
+		"LiveChatPidPath": "/tmp",
+		"LiveChatSystemUser": "",
+		"LiveChatSystemGroup": "",
+		"LiveChatLogFile": "",
+		"LiveChatDebugLogFile": "",
+		"LiveChatManagerSocketName": "tcp://127.0.0.1:2345",
+		"LiveChatStorageSocketName": "tcp://127.0.0.1:2344",
+		"LiveChatServerAddress": "0.0.0.0",
+		"LiveChatServerPort": "2346",
+		"LiveChatServerThreads": 1,
+		"LiveChatClientDomain": "",
+		"LiveChatClientPort": "2346",
+		"LiveChatClientPath": "",
+		"LiveChatClientTLS": false
+	},
+	"load_composer_autoloader": true,
+	"manifest_version": 1
+}

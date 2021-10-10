@@ -1,0 +1,79 @@
+@import 'mediawiki.mixins';
+
+.livechat-Message {
+  display: flex;
+
+  &.livechat-Message-reply {
+    & > .avatar {
+      margin-left: 2em;
+    }
+  }
+
+  & > .avatar {
+    flex: none;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    margin-right: .7em;
+  }
+
+  & > .message {
+//    flex: auto;
+    position: relative;
+
+    & > .reply-to {
+      color: grey;
+    }
+
+    & > .body {
+      padding: .5em;
+      background-color: floralwhite;
+      border-radius: 0 1em 1em 1em;
+
+      & > .comment {
+        .free {
+          overflow-wrap: anywhere;
+        }
+      }
+
+      & > .date {
+        color: grey;
+        padding-right: 4em;
+      }
+    }
+
+    & > .reactions {
+      position: absolute;
+      right: 0;
+      bottom: 23px;
+      padding: 0 .4em;
+      font-size: larger;
+      cursor: pointer;
+
+      .livechat-iconElement::before {
+        padding: .2em;
+      }
+    }
+
+    & > .footer {
+      font-size: smaller;
+      & > .oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
+        color: darkgreen;
+        &:hover {
+          color: green;
+        }
+      }
+      & > .oo-ui-buttonElement > .oo-ui-buttonElement-button {
+        padding-top: 0.1em;
+        font-weight: normal;
+      }
+      & > .oo-ui-buttonElement.clicked > .oo-ui-buttonElement-button {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &:not( :last-child ) {
+    margin-bottom: .2em;
+  }
+}
