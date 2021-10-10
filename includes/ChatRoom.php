@@ -11,7 +11,7 @@ class ChatRoom extends Room {
 
 	const ROOM_TYPE = 10;
 
-	//	const
+	// const
 	const O_PERM_CAN_POST_MESSAGE = 'canPostMessagePermission';
 	const O_PERM_CAN_POST_REACTION = 'canPostReactionPermission';
 
@@ -87,7 +87,7 @@ class ChatRoom extends Room {
 	}
 
 	/**
-	 * @param array $message
+	 * @param array &$message
 	 * @param string $userName
 	 */
 	private function addUserReaction( array &$message, string $userName ) {
@@ -108,36 +108,36 @@ class ChatRoom extends Room {
 		$connection->send( self::EVENT_SEND_ROOM_STATISTICS, [ 'statistics' => $statistics ] );
 	}
 
-//	protected function onUserJoin( Connection $connection, string $userKey ) {
-//		parent::onUserJoin( $connection, $userKey );
-//
-//		$msg = [
-//			'status' => 'join',
-//			'data' => array_intersect_key( $this->users[$userKey], [ 'name' => 1, 'realName' => 1 ] ),
-//		];
-//		foreach ( $this->connections as $c ) {
-//			if ( $c === $connection ) {
-//				continue;
-//			}
-//			$c->send( self::EVENT_SEND_USER_STATUS, $msg );
-//		}
-//	}
-//
-//	protected function onUserLeft( Connection $connection, string $userKey ) {
-//		parent::onUserLeft( $connection, $userKey );
-//
-//		$msg = [
-//			'status' => 'left',
-//			'data' => array_intersect_key( $this->users[$userKey], ['name' => 1, 'realName' => 1] ),
-//		];
-//		unset( $this->users[$userKey] );
-//		foreach ( $this->connections as $c ) {
-//			if ( $c === $connection ) {
-//				continue;
-//			}
-//			$c->send( self::EVENT_SEND_USER_STATUS, $msg );
-//		}
-//	}
+	// protected function onUserJoin( Connection $connection, string $userKey ) {
+		// parent::onUserJoin( $connection, $userKey );
+		//
+		// $msg = [
+			// 'status' => 'join',
+			// 'data' => array_intersect_key( $this->users[$userKey], [ 'name' => 1, 'realName' => 1 ] ),
+		// ];
+		// foreach ( $this->connections as $c ) {
+			// if ( $c === $connection ) {
+				// continue;
+			// }
+			// $c->send( self::EVENT_SEND_USER_STATUS, $msg );
+		// }
+	// }
+	//
+	// protected function onUserLeft( Connection $connection, string $userKey ) {
+		// parent::onUserLeft( $connection, $userKey );
+		//
+		// $msg = [
+			// 'status' => 'left',
+			// 'data' => array_intersect_key( $this->users[$userKey], ['name' => 1, 'realName' => 1] ),
+		// ];
+		// unset( $this->users[$userKey] );
+		// foreach ( $this->connections as $c ) {
+			// if ( $c === $connection ) {
+				// continue;
+			// }
+			// $c->send( self::EVENT_SEND_USER_STATUS, $msg );
+		// }
+	// }
 
 	/**
 	 * @param Connection $connection
@@ -209,56 +209,56 @@ class ChatRoom extends Room {
 
 		$this->sendDatabaseCommand( 'insert', ChatData::class, $data, true );
 
-//		$parentId = $data['parent'] ?? null;
-//		if ( $parentId ) {
-//			if ( empty( $this->parents[$parentId] ) ) {
-//				if ( empty( $this->messages[$parentId] ) ) {
-//					$parent = $this->loadMessage( $parentId, true );
-//				} else {
-//					$parent =& $this->messages[$parentId];
-//				}
-//				if ( !$parent || isset( $parent['parent'] ) ) {
-//					$parentId = null; // don't allow wrong parent and parent of children
-//				} else {
-//					$this->parents[$parentId] =& $parent;
-//				}
-//			} else {
-//				$parent =& $this->parents[$parentId];
-//			}
-//		}
-//
-//		$time = Connection::getTime();
-//		$text = substr( $data['message'] ?? '', 0, self::MAX_MESSAGE_TEXT_SIZE );
-//		$msg = self::makeMessage( $text, $user->getName(), $user->getId(), $time, $parentId );
-//		$id = $this->saveMessage( $connection, $msg, $text, $time );
-//		$msg['id'] = $id;
-//		if ( !$id ) {
-//			$msg['clientTime'] = $data['time'] ?? null;
-//			$connection->send( self::EVENT_SEND_MESSAGE_CONFIRM, $msg, $time );
-//			return;
-//		}
-//
-//		$this->messages[$id] = $msg;
-//		if ( $parentId ) {
-//			$parent['children'][] =& $this->messages[$id];
-//		}
-//
-//		if ( count( $this->messages ) > $this->cacheSize ) {
-//			$min = min( array_keys( $this->messages ) );
-//			unset( $this->messages[$min] );
-//		}
-//
-//		foreach ( $this->connections as $c ) {
-//			if ( $c === $connection ) {
-//				$tmp = $msg;
-//				$tmp['clientTime'] = $data['time'] ?? null;
-//				$c->send( self::EVENT_SEND_MESSAGE_CONFIRM, $tmp, $time );
-//			} else {
-//				$tmp = $msg;
-////				$this->addUserReaction( $tmp );
-//				$c->send( self::EVENT_SEND_MESSAGE, $tmp, $time );
-//			}
-//		}
+		// $parentId = $data['parent'] ?? null;
+		// if ( $parentId ) {
+			// if ( empty( $this->parents[$parentId] ) ) {
+				// if ( empty( $this->messages[$parentId] ) ) {
+					// $parent = $this->loadMessage( $parentId, true );
+				// } else {
+					// $parent =& $this->messages[$parentId];
+				// }
+			// if ( !$parent || isset( $parent['parent'] ) ) {
+				// $parentId = null; // don't allow wrong parent and parent of children
+			// } else {
+				// $this->parents[$parentId] =& $parent;
+			// }
+		// } else {
+			// $parent =& $this->parents[$parentId];
+		// }
+		// }
+		//
+		// $time = Connection::getTime();
+		// $text = substr( $data['message'] ?? '', 0, self::MAX_MESSAGE_TEXT_SIZE );
+		// $msg = self::makeMessage( $text, $user->getName(), $user->getId(), $time, $parentId );
+		// $id = $this->saveMessage( $connection, $msg, $text, $time );
+		// $msg['id'] = $id;
+		// if ( !$id ) {
+			// $msg['clientTime'] = $data['time'] ?? null;
+			// $connection->send( self::EVENT_SEND_MESSAGE_CONFIRM, $msg, $time );
+			// return;
+		// }
+		//
+		// $this->messages[$id] = $msg;
+		// if ( $parentId ) {
+			// $parent['children'][] =& $this->messages[$id];
+		// }
+		//
+		// if ( count( $this->messages ) > $this->cacheSize ) {
+			// $min = min( array_keys( $this->messages ) );
+			// unset( $this->messages[$min] );
+		// }
+		//
+		// foreach ( $this->connections as $c ) {
+			// if ( $c === $connection ) {
+				// $tmp = $msg;
+				// $tmp['clientTime'] = $data['time'] ?? null;
+				// $c->send( self::EVENT_SEND_MESSAGE_CONFIRM, $tmp, $time );
+			// } else {
+				// $tmp = $msg;
+				// $this->addUserReaction( $tmp );
+				// $c->send( self::EVENT_SEND_MESSAGE, $tmp, $time );
+			// }
+		// }
 	}
 
 	/**
@@ -372,55 +372,55 @@ class ChatRoom extends Room {
 		}
 	}
 
-//	/**
-//	 * @param $messageId
-//	 * @param bool $withChildren
-//	 * @return array
-//	 */
-//	public function loadMessage( $messageId, $withChildren = false ) {
-//		$dbr = $this->getDBR();
-//		$conds = [
-//			self::C_ROOM_TYPE => static::ROOM_TYPE,
-//			self::C_ROOM_ID => $this->roomId,
-//		];
-//		if ( $withChildren ) {
-//			$ids = $dbr->makeList( [
-//				self::C_ID => $messageId,
-//				self::C_PARENT => $messageId,
-//			], LIST_OR );
-//			$conds[] = 	$ids;
-//		} else {
-//			$conds[self::C_ID] = $messageId;
-//		}
-//
-//		// TODO get user name from user table
-//		$res = $dbr->select( self::TABLE, '*', $conds,  __METHOD__ );
-//		if ( !$res ) {
-//			return [];
-//		}
-//
-//		$parent = [];
-//		$children = [];
-//		foreach ( $res as $row ) {
-//			$msg = self::messageFromRow( (array)$row );
-//			$id = $msg['id'];
-//			if ( $id == $messageId ) {
-//				$parent = $msg;
-//			} else {
-//				$children[$id] = $msg;
-//			}
-//		}
-//		if ( $children ) {
-//			$parent['children'] = $children;
-//		}
-//
-//		if ( $parent[self::C_ROOM_TYPE] != static::ROOM_TYPE ||
-//			$parent[self::C_ROOM_ID] != $this->roomId
-//		) {
-//			return [];
-//		}
-//		return $parent;
-//	}
+	// /**
+	//  * @param $messageId
+	//  * @param bool $withChildren
+	//  * @return array
+	//  */
+	// public function loadMessage( $messageId, $withChildren = false ) {
+		// $dbr = $this->getDBR();
+		// $conds = [
+			// self::C_ROOM_TYPE => static::ROOM_TYPE,
+			// self::C_ROOM_ID => $this->roomId,
+		// ];
+		// if ( $withChildren ) {
+			// $ids = $dbr->makeList( [
+				// self::C_ID => $messageId,
+				// self::C_PARENT => $messageId,
+			// ], LIST_OR );
+			// $conds[] = 	$ids;
+		// } else {
+			// $conds[self::C_ID] = $messageId;
+		// }
+		//
+		// // TODO get user name from user table
+		// $res = $dbr->select( self::TABLE, '*', $conds,  __METHOD__ );
+		// if ( !$res ) {
+			// return [];
+		// }
+		//
+		// $parent = [];
+		// $children = [];
+		// foreach ( $res as $row ) {
+			// $msg = self::messageFromRow( (array)$row );
+			// $id = $msg['id'];
+			// if ( $id == $messageId ) {
+				// $parent = $msg;
+			// } else {
+				// $children[$id] = $msg;
+			// }
+		// }
+		// if ( $children ) {
+			// $parent['children'] = $children;
+		// }
+		//
+		// if ( $parent[self::C_ROOM_TYPE] != static::ROOM_TYPE ||
+			// $parent[self::C_ROOM_ID] != $this->roomId
+		// ) {
+			// return [];
+		// }
+		// return $parent;
+	// }
 
 	/**
 	 * @param array $row
@@ -468,7 +468,7 @@ class ChatRoom extends Room {
 	 */
 	public function getDBW() {
 		if ( !self::$dbw ) {
-			self::$dbw = wfGetDB( DB_MASTER );
+			self::$dbw = wfGetDB( DB_PRIMARY );
 		}
 		return self::$dbw;
 	}
@@ -485,9 +485,9 @@ class ChatRoom extends Room {
 
 	protected function canUserPostReaction( User $user ) {
 		$options = $this->getOptions();
-		if ( empty( $options[ChatRoom::O_PERM_CAN_POST_REACTION] ) ) {
+		if ( empty( $options[self::O_PERM_CAN_POST_REACTION] ) ) {
 			return true;
 		}
-		return $user->isAllowed( $options[ChatRoom::O_PERM_CAN_POST_REACTION] );
+		return $user->isAllowed( $options[self::O_PERM_CAN_POST_REACTION] );
 	}
 }

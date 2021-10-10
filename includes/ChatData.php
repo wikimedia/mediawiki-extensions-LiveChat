@@ -82,7 +82,7 @@ class ChatData {
 		$target = $data['target'] ?? null;
 
 		$value = $data['message']['value'] ?? [];
-//		$userId = $value['userId'] ?? 0;
+		// $userId = $value['userId'] ?? 0;
 		$userName = $value['userName'] ?? 'Undefined';
 
 		$fromId = $value['fromId'] ?? null;
@@ -259,8 +259,8 @@ class ChatData {
 	}
 
 	/**
-	 * @param array $messages
-	 * @param array $reactions
+	 * @param array &$messages
+	 * @param array &$reactions
 	 * @param string $id
 	 * @param string $userName
 	 * @param string $newReaction
@@ -290,15 +290,15 @@ class ChatData {
 			self::debugLog( __FUNCTION__, '$oldReaction', $oldReaction, '$newReaction', $newReaction );
 			if ( ( $messageReactions[$oldReaction] ?? 0 ) > 0 ) {
 				$messageReactions[$oldReaction]--;
-//				echo '$messageReactions[ $oldReaction ]--', "\n";
+				// echo '$messageReactions[ $oldReaction ]--', "\n";
 			}
 		}
 		if ( empty( $messageReactions[$newReaction] ) ) {
 			$messageReactions[$newReaction] = 1;
-//			echo '$messageReactions[$newReaction] = 1;', "\n";
+			// echo '$messageReactions[$newReaction] = 1;', "\n";
 		} else {
 			$messageReactions[$newReaction]++;
-//			echo '$messageReactions[$newReaction]++;', "\n";
+			// echo '$messageReactions[$newReaction]++;', "\n";
 		}
 		$reactions[$id][$userName] = $newReaction;
 
@@ -367,10 +367,10 @@ class ChatData {
 			$messagesCache[$id] = $msg;
 
 			// TODO need to develop more smarter cleaner (should work with parents and reactions)
-//			if ( count( $messagesCache ) > static::CACHE_SIZE ) {
-//				$min = min( array_keys( $messagesCache ) );
-//				unset( $messagesCache[$min] );
-//			}
+			// if ( count( $messagesCache ) > static::CACHE_SIZE ) {
+				// $min = min( array_keys( $messagesCache ) );
+				// unset( $messagesCache[$min] );
+			// }
 		} else {
 			self::debugLog( __FUNCTION__, 'ERROR: Cannot insert row' );
 		}
@@ -471,7 +471,7 @@ class ChatData {
 				self::C_ID => $messageId,
 				self::C_PARENT => $messageId,
 			], LIST_OR );
-			$conds[] = 	$ids;
+			$conds[] = $ids;
 		} else {
 			$conds[self::C_ID] = $messageId;
 		}
@@ -559,7 +559,7 @@ class ChatData {
 	 */
 	protected static function getDBW() {
 		if ( !self::$dbw ) {
-			self::$dbw = wfGetDB( DB_MASTER );
+			self::$dbw = wfGetDB( DB_PRIMARY );
 		}
 		return self::$dbw;
 	}
@@ -595,14 +595,14 @@ class ChatData {
 	protected static function loadMessagesToCache( int $roomType, int $roomId ) {
 		self::debugLog( __FUNCTION__, $roomType, $roomId );
 		$roomCache = &self::getCache( [ $roomType, $roomId ] );
-//		if ( !$roomCache ) {
+		// if ( !$roomCache ) {
 			$roomCache = [
 				'messages' => [],
 				'parents' => [],
 				'children' => [],
 				'reactions' => [],
 			];
-//		}
+		// }
 
 		$dbr = self::getDBR();
 		$conds = [

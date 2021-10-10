@@ -32,7 +32,6 @@ class MessageParser {
 			Parser::EXT_LINK_URL_CLASS . '*)\p{Zs}*([^\]\\x00-\\x08\\x0a-\\x1F\\x{FFFD}]*?)\]/Su';
 	}
 
-
 	public static function parse( $text ) {
 		$parser = new self();
 		$parser->parseInternalLinks( $text );
@@ -56,7 +55,7 @@ class MessageParser {
 				$this->result[] = self::makeText( $matches[1] );
 			}
 			$this->result[] = self::makeInternalLink( $matches[2], $matches[3] );
-//			var_dump( $matches );
+			// var_dump( $matches );
 			$text = $matches[4];
 		}
 
@@ -120,7 +119,7 @@ class MessageParser {
 			}
 
 			$newCount = count( $newResult );
-			if ( $newCount === 1  ) {
+			if ( $newCount === 1 ) {
 				$this->result[$key] = $newResult[0];
 			} elseif ( $newResult ) {
 				array_splice( $this->result, $key, 1, $newResult );
@@ -147,7 +146,7 @@ class MessageParser {
 			$newResult = [];
 
 			while ( preg_match( "!(.*?)(\b(?i:$prots)($addr$urlChar*))(.*)!xu", $text, $matches ) ) {
-//				var_dump( $matches );
+				// var_dump( $matches );
 				if ( $matches[1] ) {
 					$newResult[] = self::makeText( $matches[1] );
 				}
@@ -163,7 +162,7 @@ class MessageParser {
 			}
 
 			$newCount = count( $newResult );
-			if ( $newCount === 1  ) {
+			if ( $newCount === 1 ) {
 				$this->result[$key] = $newResult[0];
 			} elseif ( $newResult ) {
 				array_splice( $this->result, $key, 1, $newResult );

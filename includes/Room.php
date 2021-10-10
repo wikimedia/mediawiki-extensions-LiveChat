@@ -14,7 +14,7 @@ class Room {
 	const MANAGER_ACTION_SEND_TO_ALL = 'SendToAll';
 	const MANAGER_ACTION_SYNC = 'sync';
 	const TARGET_CONNECTION = 'cId';
-//	const TARGET_USER = 'uId';
+	// const TARGET_USER = 'uId';
 
 	/**
 	 * @var int
@@ -69,7 +69,7 @@ class Room {
 		if ( $restriction ) {
 			if ( !$user->isAllowed( $restriction ) ) {
 				$this->debugLog( __FUNCTION__, 'Room is not allowed for user', static::class, $restriction, $user->getName() );
-				$connection->sendErrorMessage( 'You are not allowed to connect to room ' . static::class);
+				$connection->sendErrorMessage( 'You are not allowed to connect to room ' . static::class );
 				return;
 			}
 		}
@@ -111,10 +111,10 @@ class Room {
 			}
 		}
 
-//		$toUser = $target[self::TARGET_USER] ?? null;
-//		if ( $toUser ) {
-//			$this->users[$toUser]
-//		}
+		// $toUser = $target[self::TARGET_USER] ?? null;
+		// if ( $toUser ) {
+			// $this->users[$toUser]
+		// }
 
 		return $return;
 	}
@@ -147,13 +147,15 @@ class Room {
 	 * @param Connection $connection
 	 * @param string $userKey
 	 */
-	protected function onUserJoin( Connection $connection, string $userKey ) {}
+	protected function onUserJoin( Connection $connection, string $userKey ) {
+	}
 
 	/**
 	 * @param Connection $connection
 	 * @param string $userKey
 	 */
-	protected function onUserLeft( Connection $connection, string $userKey ) {}
+	protected function onUserLeft( Connection $connection, string $userKey ) {
+	}
 
 	/**
 	 * @return array
@@ -267,19 +269,19 @@ class Room {
 		$this->managerConnection->send( $buffer );
 	}
 
-//	/**
-//	 * @param string $name
-//	 * @param mixed $value
-//	 */
-//	protected function syncManagerData( string $name, $value ) {
-//		$this->sendToManager(
-//			'sync',
-//			[
-//				'name' => $name,
-//				'value' => $value,
-//			]
-//		);
-//	}
+	// /**
+	//  * @param string $name
+	//  * @param mixed $value
+	//  */
+	// protected function syncManagerData( string $name, $value ) {
+		// $this->sendToManager(
+			// 'sync',
+			// [
+				// 'name' => $name,
+				// 'value' => $value,
+			// ]
+		// );
+	// }
 
 	/**
 	 * @param string $command

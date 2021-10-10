@@ -91,7 +91,7 @@ class Worker extends \Workerman\Worker {
 	/**
 	 * @param ConnectionInterface $connection
 	 */
-	public function onConnect(  ConnectionInterface $connection  ) {
+	public function onConnect( ConnectionInterface $connection ) {
 		self::debugLog( __FUNCTION__, $connection->id ?? 'undefined' );
 	}
 

@@ -392,7 +392,7 @@ class Manager extends Worker {
 			self::debugLog( __FUNCTION__, $connection->id ?? 'undefined', 'ERROR: name is null' );
 			$value = null;
 		} else {
-//			self::debugLog( __FUNCTION__, var_export( $this->data, true ) );
+			// self::debugLog( __FUNCTION__, var_export( $this->data, true ) );
 			$value = $this->data[$name] ?? null;
 			self::debugLog( __FUNCTION__, $name, var_export( $value, true ) );
 		}
@@ -476,21 +476,21 @@ class Manager extends Worker {
 		}
 	}
 
-//	/**
-//	 * @param string $name
-//	 * @param mixed $value
-//	 * @return bool
-//	 */
-//	public static function setData( string $name, $value ): bool {
-//		$data = [
-//			'command' => 'set',
-//			'message' => [
-//				'name' => $name,
-//				'value' => $value,
-//			],
-//		];
-//		return self::sendDataToItself( $data );
-//	}
+	// /**
+	// * @param string $name
+	// * @param mixed $value
+	// * @return bool
+	// */
+	// public static function setData( string $name, $value ): bool {
+		// $data = [
+			// 'command' => 'set',
+			// 'message' => [
+				// 'name' => $name,
+				// 'value' => $value,
+			// ],
+		// ];
+		// return self::sendDataToItself( $data );
+	// }
 
 	/**
 	 * @param array $data
@@ -505,7 +505,7 @@ class Manager extends Worker {
 	 * @param string $buffer
 	 * @return bool
 	 */
-	public static function sendBufferToItself( string  $buffer ) {
+	public static function sendBufferToItself( string $buffer ) {
 		self::debugLog( __FUNCTION__, $buffer );
 		$managerSocketName = self::getConfigValue( 'LiveChatManagerSocketName' );
 		$instance = stream_socket_client( $managerSocketName );

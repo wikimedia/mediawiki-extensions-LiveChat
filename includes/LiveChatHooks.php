@@ -1,9 +1,9 @@
 <?php
 
 use LiveChat\ChatData;
+use LiveChat\ChatRoom;
 use LiveChat\Connection;
 use LiveChat\ManagerRoom;
-use LiveChat\ChatRoom;
 use MediaWiki\MediaWikiServices;
 
 class LiveChatHooks {
@@ -20,8 +20,8 @@ class LiveChatHooks {
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
-	 * @param OutputPage $out
-	 * @param Skin $skin
+	 * @param OutputPage &$out
+	 * @param Skin &$skin
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		// $out->addModules( 'ext.LiveChat.client' );
@@ -58,7 +58,7 @@ class LiveChatHooks {
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MakeGlobalVariablesScript
-	 * @param $vars
+	 * @param &$vars
 	 * @param OutputPage $out
 	 * @throws ConfigException
 	 */

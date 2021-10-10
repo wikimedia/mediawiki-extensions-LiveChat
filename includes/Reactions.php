@@ -1,9 +1,7 @@
 <?php
 namespace LiveChat;
 
-use MWDebug;
 use User;
-use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 class Reactions {
 	const TABLE = 'lch_msg_reactions';
@@ -39,7 +37,7 @@ class Reactions {
 
 	/**
 	 * Reactions constructor.
-	 * @param array $messages
+	 * @param array &$messages
 	 * @param ChatRoom $room
 	 */
 	public function __construct( array &$messages, ChatRoom $room ) {
@@ -47,91 +45,91 @@ class Reactions {
 		$this->room = $room;
 	}
 
-//	public function addReaction( Connection $connection, array $data ) {
-//		$user = $connection->getUser();
-//		if ( !$this->canUserPostReaction( $user ) ) {
-//			$errorMessage = Tools::getMessage( $user, 'ext-livechat-error-user-cannot-post-reactions' )->text();
-//			$tmp = [
-//				'clientTime' => $data['time'] ?? null,
-//				'error' => $errorMessage,
-//			];
-//			$connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp );
-//			return;
-//		}
-//
-//		$id = $data['message'] ?? null;
-//		if ( !$id ) {
-//			MWDebug::log( 'No message id provided' );
-//			return;
-//		}
-//
-//		$newReaction = $data['reaction'] ?? null;
-//		$newReactionId = $this->reactionsByName[$newReaction] ?? null;
-//		if ( !$newReactionId ) {
-//			MWDebug::log( "Reaction $newReaction is not allowed" );
-//			return;
-//		}
-//
-//		$data['userId'] = $user->getId();
-//		$data['userName'] = $user->getName();
-//		$this->updateManagerData( ChatRoom::EVENT_REACTION, $data, true );
-//
-//		$msgInCache = self::updateReaction( $this->messages, $this->reactions, $id, $user->getName(), $newReaction );
-//		if ( $msgInCache ) {
-//			$messageReactions = $this->messages[$id]['reactions'];
-//		} else {
-//			$row = $this->room->loadMessage( $id );
-//			if ( !$row ) {
-//				MWDebug::log( "Message does not exist" );
-//				return;
-//			}
-//			$tmp = [];
-//			$this->loadForMessagesInternal( $row, $tmp );
-//			self::updateReaction( $row, $tmp, $id, $user->getName(), $newReaction );
-//			$messageReactions = current( $row )['reactions'];
-//		}
-//
-//		$dbw = $this->room->getDBW();
-//		$time = Connection::getTime();
-//		$timestamp = ConvertibleTimestamp::convert( TS_MW, $time );
-//		$index = [
-//			self::C_MESSAGE_ID => $id,
-//			self::C_USER_ID => $connection->getUser()->getId(),
-//			self::C_USER_TEXT => $connection->getUser()->getName(),
-//			self::C_TIMESTAMP => $timestamp,
-//		];
-//		$set = [
-//			self::C_TYPE => $newReactionId,
-//		];
-//		$dbw->upsert(
-//			self::TABLE,
-//			[ $index + $set ],
-//			[ self::C_MESSAGE_ID, self::C_USER_TEXT ],
-//			$set,
-//			__METHOD__
-//		);
-//
-//		$msg = [
-//			'id' => $id,
-//			'reaction' => $newReaction,
-//			'messageReactions' => $messageReactions,
-//			'time' => $timestamp,
-//		];
-//		$tmp = $msg;
-//		$tmp['clientTime'] = $data['time'] ?? null;
-//		$connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp, $time );
-//		if ( !$msgInCache ) {
-//			return;
-//		}
-//
-//		foreach ( $this->room->getConnections() as $c ) {
-//			if ( $c === $connection ) {
-//				continue;
-//			} else {
-//				$c->send( ChatRoom::EVENT_SEND_REACTION, $msg, $time );
-//			}
-//		}
-//	}
+	// public function addReaction( Connection $connection, array $data ) {
+		// $user = $connection->getUser();
+		// if ( !$this->canUserPostReaction( $user ) ) {
+			// $errorMessage = Tools::getMessage( $user, 'ext-livechat-error-user-cannot-post-reactions' )->text();
+			// $tmp = [
+				// 'clientTime' => $data['time'] ?? null,
+				// 'error' => $errorMessage,
+			// ];
+			// $connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp );
+			// return;
+		// }
+		//
+		// $id = $data['message'] ?? null;
+		// if ( !$id ) {
+			// MWDebug::log( 'No message id provided' );
+			// return;
+		// }
+		//
+		// $newReaction = $data['reaction'] ?? null;
+		// $newReactionId = $this->reactionsByName[$newReaction] ?? null;
+		// if ( !$newReactionId ) {
+			// MWDebug::log( "Reaction $newReaction is not allowed" );
+			// return;
+		// }
+		//
+		// $data['userId'] = $user->getId();
+		// $data['userName'] = $user->getName();
+		// $this->updateManagerData( ChatRoom::EVENT_REACTION, $data, true );
+		//
+		// $msgInCache = self::updateReaction( $this->messages, $this->reactions, $id, $user->getName(), $newReaction );
+		// if ( $msgInCache ) {
+			// $messageReactions = $this->messages[$id]['reactions'];
+		// } else {
+			// $row = $this->room->loadMessage( $id );
+			// if ( !$row ) {
+				// MWDebug::log( "Message does not exist" );
+				// return;
+			// }
+			// $tmp = [];
+			// $this->loadForMessagesInternal( $row, $tmp );
+			// self::updateReaction( $row, $tmp, $id, $user->getName(), $newReaction );
+			// $messageReactions = current( $row )['reactions'];
+		// }
+		//
+		// $dbw = $this->room->getDBW();
+		// $time = Connection::getTime();
+		// $timestamp = ConvertibleTimestamp::convert( TS_MW, $time );
+		// $index = [
+			// self::C_MESSAGE_ID => $id,
+			// self::C_USER_ID => $connection->getUser()->getId(),
+			// self::C_USER_TEXT => $connection->getUser()->getName(),
+			// self::C_TIMESTAMP => $timestamp,
+		// ];
+		// $set = [
+			// self::C_TYPE => $newReactionId,
+		// ];
+		// $dbw->upsert(
+			// self::TABLE,
+			// [ $index + $set ],
+			// [ self::C_MESSAGE_ID, self::C_USER_TEXT ],
+			// $set,
+			// __METHOD__
+		// );
+		//
+		// $msg = [
+			// 'id' => $id,
+			// 'reaction' => $newReaction,
+			// 'messageReactions' => $messageReactions,
+			// 'time' => $timestamp,
+		// ];
+		// $tmp = $msg;
+		// $tmp['clientTime'] = $data['time'] ?? null;
+		// $connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp, $time );
+		// if ( !$msgInCache ) {
+			// return;
+		// }
+		//
+		// foreach ( $this->room->getConnections() as $c ) {
+			// if ( $c === $connection ) {
+				// continue;
+			// } else {
+				// $c->send( ChatRoom::EVENT_SEND_REACTION, $msg, $time );
+			// }
+		// }
+	// }
 
 	public function canUserPostReaction( User $user ) {
 		$options = $this->room->getOptions();
@@ -172,8 +170,8 @@ class Reactions {
 	}
 
 	/**
-	 * @param array $messages
-	 * @param array $reactions
+	 * @param array &$messages
+	 * @param array &$reactions
 	 * @param string $id
 	 * @param string $userName
 	 * @param string $newReaction
@@ -181,38 +179,38 @@ class Reactions {
 	 */
 	private static function updateReaction( &$messages, &$reactions, $id, $userName, $newReaction ) {
 		if ( empty( $messages[$id] ) ) {
-//			echo 'empty( $messages[$id] )', "\n";
+			// echo 'empty( $messages[$id] )', "\n";
 			return false;
 		}
 
 		if ( !isset( $messages[$id]['reactions'] ) ) {
-//			echo 'empty( $messages[$id][\'reactions\'] )', "\n";
+			// echo 'empty( $messages[$id][\'reactions\'] )', "\n";
 			$messages[$id]['reactions'] = [];
 		}
 		if ( !isset( $reactions[$id] ) ) {
-//			echo 'empty( $reactions[$id] )', "\n";
+			// echo 'empty( $reactions[$id] )', "\n";
 			$reactions[$id] = [];
 		}
 		$messageReactions =& $messages[$id]['reactions'];
 		if ( isset( $reactions[$id][$userName] ) ) {
-//			echo 'isset( $reactions[$id][$userName] )', "\n";
+			// echo 'isset( $reactions[$id][$userName] )', "\n";
 			$oldReaction = $reactions[$id][$userName];
-//			echo '$oldReaction=', $oldReaction, "\n";
+			// echo '$oldReaction=', $oldReaction, "\n";
 			if ( $oldReaction === $newReaction ) {
-//				echo '$oldReaction === $newReaction', "\n";
+				// echo '$oldReaction === $newReaction', "\n";
 				return true;
 			}
 			if ( ( $messageReactions[$oldReaction] ?? 0 ) > 0 ) {
 				$messageReactions[$oldReaction]--;
-//				echo '$messageReactions[ $oldReaction ]--', "\n";
+				// echo '$messageReactions[ $oldReaction ]--', "\n";
 			}
 		}
 		if ( empty( $messageReactions[$newReaction] ) ) {
 			$messageReactions[$newReaction] = 1;
-//			echo '$messageReactions[$newReaction] = 1;', "\n";
+			// echo '$messageReactions[$newReaction] = 1;', "\n";
 		} else {
 			$messageReactions[$newReaction]++;
-//			echo '$messageReactions[$newReaction]++;', "\n";
+			// echo '$messageReactions[$newReaction]++;', "\n";
 		}
 		$reactions[$id][$userName] = $newReaction;
 
@@ -225,7 +223,7 @@ class Reactions {
 		} elseif ( $fromCache ) {
 			return null;
 		}
-//		return null;
+		// return null;
 	}
 
 }
