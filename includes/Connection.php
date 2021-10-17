@@ -51,7 +51,14 @@ class Connection {
 	 */
 	private $data = [];
 
+	/**
+	 * @var Connection[][]
+	 */
 	private static $anonymous = [];
+
+	/**
+	 * @var Connection[][]
+	 */
 	private static $registered = [];
 
 	const COUNT_ALL = 1;

@@ -319,7 +319,7 @@ class ChatRoom extends Room {
 	}
 
 	/**
-	 * @param $userId
+	 * @param int|null $userId
 	 * @param string $size
 	 * @return string|null
 	 */

@@ -288,6 +288,7 @@ class Room {
 	 * @param string $providerName
 	 * @param mixed $value
 	 * @param bool $sync
+	 * @param array|null $target
 	 */
 	protected function sendDatabaseCommand( string $command, string $providerName, $value, bool $sync = false, ?array $target = null ) {
 		$this->debugLog( __FUNCTION__, $command, $providerName );

@@ -54,6 +54,9 @@ class Manager extends Worker {
 	 */
 	protected $timerConnections = [];
 
+	/**
+	 * @var AsyncTcpConnection
+	 */
 	protected $storageConnection;
 
 	/**
@@ -265,7 +268,7 @@ class Manager extends Worker {
 			}
 		}
 
-		if ( isset( $connection->roomType, $connection->roomId ) ) {
+		if ( isset( $connection->roomType ) && isset( $connection->roomId ) ) {
 			$roomType = $connection->roomType;
 			$roomId = $connection->roomId;
 			if ( $id !== null ) {

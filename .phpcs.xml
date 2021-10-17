@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="Generic.Files.LineLength.TooLong" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.NoParamType" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.ParamNameNoMatch" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
-		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
-		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
 		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionVarUsage" />
-		<exclude name="MediaWiki.Usage.ForbiddenFunctions.isset" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
-		<exclude name="Squiz.Scope.MethodScope.Missing" />
 	</rule>
+
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="150" />
+		</properties>
+	</rule>
+
 	<file>.</file>
 	<arg name="extensions" value="php"/>
 	<arg name="encoding" value="UTF-8"/>

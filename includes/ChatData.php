@@ -55,6 +55,7 @@ class ChatData {
 	private static $dbr;
 
 	/**
+	 * @param ConnectionInterface $connection
 	 * @param string $name
 	 * @param string $command
 	 * @param array $data
@@ -434,7 +435,7 @@ class ChatData {
 	}
 
 	/**
-	 * @param $userId
+	 * @param int|null $userId
 	 * @param string $size
 	 * @return string|null
 	 */

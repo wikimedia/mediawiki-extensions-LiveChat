@@ -77,7 +77,10 @@ class LiveChatServer extends Maintenance {
 				$c = Connection::factory( $connection );
 				$connection->liveChatConnection = $c;
 
-				$this->output( "New connection, user <" . $c->getUser()->getName() . ">. Connections: " . count( $this->wsWorker->connections ) . ", users: " . $c->getUsersCount( $c::COUNT_REGISTERED ) . ", anons: " . $c->getUsersCount( $c::COUNT_ANONYMOUS ) . " \n" );
+				$this->output( "New connection, user <" . $c->getUser()->getName() .
+					">. Connections: " . count( $this->wsWorker->connections ) .
+					", users: " . $c->getUsersCount( $c::COUNT_REGISTERED ) .
+					", anons: " . $c->getUsersCount( $c::COUNT_ANONYMOUS ) . " \n" );
 			};
 		};
 
@@ -95,7 +98,10 @@ class LiveChatServer extends Maintenance {
 			$c = self::getLiveChatConnection( $connection );
 			if ( $c ) {
 				$c->onClose();
-				$this->output( "Connection closed, user <" . $c->getUser()->getName() . ">. Connections: " . count( $this->wsWorker->connections ) . ", users: " . $c->getUsersCount( $c::COUNT_REGISTERED ) . ", anons: " . $c->getUsersCount( $c::COUNT_ANONYMOUS ) . " \n" );
+				$this->output( "Connection closed, user <" . $c->getUser()->getName() .
+					">. Connections: " . count( $this->wsWorker->connections ) .
+					", users: " . $c->getUsersCount( $c::COUNT_REGISTERED ) .
+					", anons: " . $c->getUsersCount( $c::COUNT_ANONYMOUS ) . " \n" );
 			} else {
 				$this->output( "Unknown Connection closed\n" );
 			}

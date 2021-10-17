@@ -6,11 +6,11 @@ use SpecialPage;
 
 class SpecialLiveChat extends SpecialPage {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'LiveChat' );
 	}
 
-	function execute( $subPage ) {
+	public function execute( $subPage ) {
 		$output = $this->getOutput();
 		$this->setHeaders();
 		$htmlTitle = wfMessage( 'livechat' )->text();

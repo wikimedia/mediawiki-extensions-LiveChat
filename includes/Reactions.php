@@ -27,11 +27,7 @@ class Reactions {
 	 */
 	private $reactions = [];
 
-	private $reactionsByName = [
-		'like' => 1,
-	];
-
-	private $reactionsById = [
+	private const REACTIONS_BY_ID = [
 		1 => 'like',
 	];
 
@@ -44,92 +40,6 @@ class Reactions {
 		$this->messages = &$messages;
 		$this->room = $room;
 	}
-
-	// public function addReaction( Connection $connection, array $data ) {
-		// $user = $connection->getUser();
-		// if ( !$this->canUserPostReaction( $user ) ) {
-			// $errorMessage = Tools::getMessage( $user, 'ext-livechat-error-user-cannot-post-reactions' )->text();
-			// $tmp = [
-				// 'clientTime' => $data['time'] ?? null,
-				// 'error' => $errorMessage,
-			// ];
-			// $connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp );
-			// return;
-		// }
-		//
-		// $id = $data['message'] ?? null;
-		// if ( !$id ) {
-			// MWDebug::log( 'No message id provided' );
-			// return;
-		// }
-		//
-		// $newReaction = $data['reaction'] ?? null;
-		// $newReactionId = $this->reactionsByName[$newReaction] ?? null;
-		// if ( !$newReactionId ) {
-			// MWDebug::log( "Reaction $newReaction is not allowed" );
-			// return;
-		// }
-		//
-		// $data['userId'] = $user->getId();
-		// $data['userName'] = $user->getName();
-		// $this->updateManagerData( ChatRoom::EVENT_REACTION, $data, true );
-		//
-		// $msgInCache = self::updateReaction( $this->messages, $this->reactions, $id, $user->getName(), $newReaction );
-		// if ( $msgInCache ) {
-			// $messageReactions = $this->messages[$id]['reactions'];
-		// } else {
-			// $row = $this->room->loadMessage( $id );
-			// if ( !$row ) {
-				// MWDebug::log( "Message does not exist" );
-				// return;
-			// }
-			// $tmp = [];
-			// $this->loadForMessagesInternal( $row, $tmp );
-			// self::updateReaction( $row, $tmp, $id, $user->getName(), $newReaction );
-			// $messageReactions = current( $row )['reactions'];
-		// }
-		//
-		// $dbw = $this->room->getDBW();
-		// $time = Connection::getTime();
-		// $timestamp = ConvertibleTimestamp::convert( TS_MW, $time );
-		// $index = [
-			// self::C_MESSAGE_ID => $id,
-			// self::C_USER_ID => $connection->getUser()->getId(),
-			// self::C_USER_TEXT => $connection->getUser()->getName(),
-			// self::C_TIMESTAMP => $timestamp,
-		// ];
-		// $set = [
-			// self::C_TYPE => $newReactionId,
-		// ];
-		// $dbw->upsert(
-			// self::TABLE,
-			// [ $index + $set ],
-			// [ self::C_MESSAGE_ID, self::C_USER_TEXT ],
-			// $set,
-			// __METHOD__
-		// );
-		//
-		// $msg = [
-			// 'id' => $id,
-			// 'reaction' => $newReaction,
-			// 'messageReactions' => $messageReactions,
-			// 'time' => $timestamp,
-		// ];
-		// $tmp = $msg;
-		// $tmp['clientTime'] = $data['time'] ?? null;
-		// $connection->send( ChatRoom::EVENT_SEND_REACTION_CONFIRM, $tmp, $time );
-		// if ( !$msgInCache ) {
-			// return;
-		// }
-		//
-		// foreach ( $this->room->getConnections() as $c ) {
-			// if ( $c === $connection ) {
-				// continue;
-			// } else {
-				// $c->send( ChatRoom::EVENT_SEND_REACTION, $msg, $time );
-			// }
-		// }
-	// }
 
 	public function canUserPostReaction( User $user ) {
 		$options = $this->room->getOptions();
@@ -164,7 +74,7 @@ class Reactions {
 			$a = (array)$row;
 			$id = $a[self::C_MESSAGE_ID];
 			$userText = $a[self::C_USER_ID] ? User::newFromId( $a[self::C_USER_ID] )->getName() : $a[self::C_USER_TEXT];
-			$reactionName = $this->reactionsById[ $a[self::C_TYPE] ] ?? 'undefined';
+			$reactionName = self::REACTIONS_BY_ID[ $a[self::C_TYPE] ] ?? 'undefined';
 			self::updateReaction( $messages, $reactions, $id, $userText, $reactionName );
 		}
 	}

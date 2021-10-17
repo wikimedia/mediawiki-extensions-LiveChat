@@ -58,7 +58,7 @@ class LiveChatHooks {
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MakeGlobalVariablesScript
-	 * @param &$vars
+	 * @param array &$vars
 	 * @param OutputPage $out
 	 * @throws ConfigException
 	 */
