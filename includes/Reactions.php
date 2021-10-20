@@ -41,6 +41,10 @@ class Reactions {
 		$this->room = $room;
 	}
 
+	/**
+	 * @param User $user
+	 * @return bool
+	 */
 	public function canUserPostReaction( User $user ) {
 		$options = $this->room->getOptions();
 		if ( empty( $options[ChatRoom::O_PERM_CAN_POST_REACTION] ) ) {
@@ -53,6 +57,10 @@ class Reactions {
 		$this->loadForMessagesInternal( $this->messages, $this->reactions );
 	}
 
+	/**
+	 * @param array &$messages
+	 * @param string[][] &$reactions
+	 */
 	private function loadForMessagesInternal( &$messages = [], &$reactions = [] ) {
 		if ( !$messages ) {
 			return;
@@ -127,13 +135,18 @@ class Reactions {
 		return true;
 	}
 
+	/**
+	 * @param int $id
+	 * @param User $userName
+	 * @param bool $fromCache
+	 * @return string|null|void
+	 */
 	public function getUserReaction( $id, $userName, $fromCache ) {
 		if ( isset( $this->reactions[$id] ) ) {
 			return $this->reactions[$id][$userName] ?? null;
 		} elseif ( $fromCache ) {
 			return null;
 		}
-		// return null;
 	}
 
 }

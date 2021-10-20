@@ -77,6 +77,10 @@ class ChatData {
 		}
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 * @param array $data
+	 */
 	protected static function onSelectCommand( ConnectionInterface $connection, array $data ) {
 		$roomId = $data['roomId'];
 		$roomType = $data['roomType'];
@@ -233,6 +237,10 @@ class ChatData {
 		);
 	}
 
+	/**
+	 * @param array &$messages
+	 * @param array &$reactions
+	 */
 	protected static function loadReactionsForMessages( &$messages = [], &$reactions = [] ) {
 		if ( !$messages ) {
 			return;
@@ -306,6 +314,10 @@ class ChatData {
 		return true;
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 * @param array $data
+	 */
 	protected static function onInsertCommand( ConnectionInterface $connection, array $data ) {
 		$roomId = $data['roomId'];
 		$roomType = $data['roomType'];
@@ -528,6 +540,9 @@ class ChatData {
 		return $msg;
 	}
 
+	/**
+	 * @param mixed ...$args
+	 */
 	protected static function debugLog( ...$args ) {
 		wfDebugLog(
 			__CLASS__,

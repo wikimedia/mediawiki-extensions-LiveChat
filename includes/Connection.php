@@ -3,11 +3,9 @@
 namespace LiveChat;
 
 use Exception;
-use FatalError;
 use FormatJson;
 use Hooks;
 use MWDebug;
-use MWException;
 use Title;
 use User;
 use WebRequest;
@@ -94,6 +92,10 @@ class Connection {
 		$this->lpUsers[] = $this;
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 * @return Connection
+	 */
 	public static function factory( ConnectionInterface $connection ) {
 		$_SERVER['REQUEST_TIME_FLOAT'] = microtime( true );
 		$_SERVER['REMOTE_ADDR'] = $connection->getRemoteIp();
@@ -110,6 +112,10 @@ class Connection {
 		return $this->user;
 	}
 
+	/**
+	 * @param int $count
+	 * @return int|null
+	 */
 	public function getUsersCount( $count = self::COUNT_ALL ) {
 		switch ( $count ) {
 			case self::COUNT_ALL:
@@ -122,6 +128,9 @@ class Connection {
 		return null;
 	}
 
+	/**
+	 * @param string $value
+	 */
 	public function onMessage( $value ) {
 		$data = FormatJson::decode( $value, true ) ?? [];
 		$event = $data['event'] ?? null;
@@ -184,6 +193,9 @@ class Connection {
 		return ConvertibleTimestamp::now( TS_UNIX );
 	}
 
+	/**
+	 * @param array $data
+	 */
 	private function onConnectEvent( array $data ) {
 		if ( empty( $this->userSession ) ) {
 			$this->userSession = $data['session'] ?? null;
@@ -199,10 +211,6 @@ class Connection {
 
 		try {
 			Hooks::run( 'LiveChatConnected', [ $this, $data ] );
-		} catch ( FatalError $e ) {
-			MWDebug::warning( $e->getMessage() );
-		} catch ( MWException $e ) {
-			MWDebug::warning( $e->getMessage() );
 		} catch ( Exception $e ) {
 			MWDebug::warning( $e->getMessage() );
 		}
@@ -227,6 +235,10 @@ class Connection {
 		}
 	}
 
+	/**
+	 * @param Room $room
+	 * @param string|null $name
+	 */
 	public function addRoom( Room $room, ?string $name = null ) {
 		if ( !$name ) {
 			$name = get_class( $room );
@@ -264,14 +276,25 @@ class Connection {
 		return $user->isAnon() ? $user->getName() : $user->getId();
 	}
 
+	/**
+	 * @param string $name
+	 * @return mixed|null
+	 */
 	public function getData( $name ) {
 		return $this->data[$name] ?? null;
 	}
 
+	/**
+	 * @param string $name
+	 * @param mixed $value
+	 */
 	public function setData( $name, $value ) {
 		$this->data[$name] = $value;
 	}
 
+	/**
+	 * @param string $error
+	 */
 	public function sendErrorMessage( string $error ) {
 		$this->send(
 			'ErrorMessage',

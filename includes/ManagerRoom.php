@@ -5,6 +5,11 @@ class ManagerRoom extends Room {
 
 	const ROOM_TYPE = 1;
 
+	/**
+	 * @param Connection $connection
+	 * @param string $event
+	 * @param array $data
+	 */
 	public function onEvent( Connection $connection, string $event, array $data ) {
 		switch ( $event ) {
 			case 'getRoomList':
@@ -15,6 +20,10 @@ class ManagerRoom extends Room {
 		}
 	}
 
+	/**
+	 * @param Connection $connection
+	 * @param array $data
+	 */
 	private function onGetRoomList( Connection $connection, array $data ) {
 		$this->debugLog( static::class, $connection->getId() );
 		$this->sendToManager(

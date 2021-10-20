@@ -319,6 +319,10 @@ class Room {
 		);
 	}
 
+	/**
+	 * @param string $name
+	 * @param array|null $target
+	 */
 	protected function getManagerData( string $name, ?array $target = null ) {
 		$this->sendToManager(
 			'get',
@@ -474,10 +478,18 @@ class Room {
 		}
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 */
 	public function onManagerClose( ConnectionInterface $connection ) {
 		$this->debugLog( __FUNCTION__, $connection->id ?? 'undefined' );
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 * @param mixed $code
+	 * @param string $msg
+	 */
 	public function onManagerError( ConnectionInterface $connection, $code, $msg ) {
 		$this->debugLog( __FUNCTION__, $connection->id ?? 'undefined', $code, $msg );
 	}

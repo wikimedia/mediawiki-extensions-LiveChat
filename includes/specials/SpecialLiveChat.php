@@ -10,10 +10,13 @@ class SpecialLiveChat extends SpecialPage {
 		parent::__construct( 'LiveChat' );
 	}
 
+	/**
+	 * @param string|null $subPage
+	 */
 	public function execute( $subPage ) {
 		$output = $this->getOutput();
 		$this->setHeaders();
-		$htmlTitle = wfMessage( 'livechat' )->text();
+		$htmlTitle = $this->msg( 'livechat' )->text();
 		$output->setPageTitle( $htmlTitle );
 		$output->setHTMLTitle( $htmlTitle );
 

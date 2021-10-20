@@ -129,6 +129,9 @@ class Worker extends \Workerman\Worker {
 		return null;
 	}
 
+	/**
+	 * @param mixed ...$args
+	 */
 	protected static function debugLog( ...$args ) {
 		wfDebugLog(
 			__CLASS__,

@@ -27,6 +27,9 @@ class LiveChatHooks {
 		// $out->addModules( 'ext.LiveChat.client' );
 	}
 
+	/**
+	 * @param Connection $connection
+	 */
 	public static function onLiveChatConnected( Connection $connection ) {
 		static $specialLiveChatText, $specialLiveStatusText;
 
@@ -52,6 +55,9 @@ class LiveChatHooks {
 		}
 	}
 
+	/**
+	 * @param array &$providers
+	 */
 	public static function onLiveChatStorageInit( &$providers ) {
 		$providers[ChatData::class] = ChatData::class;
 	}
@@ -74,6 +80,9 @@ class LiveChatHooks {
 		$vars['LiveChatClientURL'] = "$protocol://$domain:$port/$path";
 	}
 
+	/**
+	 * @return string
+	 */
 	private static function getDomain() {
 		global $wgServer, $wgServerName;
 
@@ -81,6 +90,9 @@ class LiveChatHooks {
 		return $serverParts && isset( $serverParts['host'] ) ? $serverParts['host'] : $wgServerName;
 	}
 
+	/**
+	 * @return ManagerRoom
+	 */
 	public static function getManagerRoom() {
 		if ( !self::$managerRoom ) {
 			self::$managerRoom = new ManagerRoom(

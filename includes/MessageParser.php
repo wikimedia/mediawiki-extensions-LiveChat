@@ -16,10 +16,12 @@ class MessageParser {
 	 * @var array
 	 */
 	private $result = [];
+
 	/**
 	 * @var string
 	 */
 	private $mUrlProtocols;
+
 	/**
 	 * @var string
 	 */
@@ -32,6 +34,10 @@ class MessageParser {
 			Parser::EXT_LINK_URL_CLASS . '*)\p{Zs}*([^\]\\x00-\\x08\\x0a-\\x1F\\x{FFFD}]*?)\]/Su';
 	}
 
+	/**
+	 * @param string $text
+	 * @return array
+	 */
 	public static function parse( $text ) {
 		$parser = new self();
 		$parser->parseInternalLinks( $text );
@@ -40,6 +46,9 @@ class MessageParser {
 		return $parser->getResult();
 	}
 
+	/**
+	 * @param string $text
+	 */
 	private function parseInternalLinks( $text ) {
 		static $tc = false, $e1;
 
@@ -69,7 +78,8 @@ class MessageParser {
 		global $wgLang;
 
 		$key = 0;
-		while ( $result = $this->result[$key] ?? null ) {
+		while ( isset( $this->result[$key] ) ) {
+			$result = $this->result[$key];
 			if ( $result['type'] !== self::TYPE_TEXT || empty( $result['text'] ) ) {
 				$key++;
 				continue;
@@ -136,7 +146,8 @@ class MessageParser {
 		$addr = Parser::EXT_LINK_ADDR;
 
 		$key = 0;
-		while ( $result = $this->result[$key] ?? null ) {
+		while ( isset( $this->result[$key] ) ) {
+			$result = $this->result[$key];
 			if ( $result['type'] !== self::TYPE_TEXT || empty( $result['text'] ) ) {
 				$key++;
 				continue;
@@ -173,6 +184,10 @@ class MessageParser {
 		}
 	}
 
+	/**
+	 * @param string $text
+	 * @return string[]
+	 */
 	private static function makeText( $text ) {
 		return [
 			'type' => self::TYPE_TEXT,
@@ -180,6 +195,11 @@ class MessageParser {
 		];
 	}
 
+	/**
+	 * @param string $titleText
+	 * @param string $text
+	 * @return string[]
+	 */
 	private static function makeInternalLink( $titleText, $text ) {
 		$title = Title::newFromText( $titleText );
 		if ( !$title ) {
@@ -193,6 +213,11 @@ class MessageParser {
 		];
 	}
 
+	/**
+	 * @param string $url
+	 * @param string|null $text
+	 * @return array
+	 */
 	private static function makeExternalLink( $url, $text = null ) {
 		return [
 			'type' => self::TYPE_EXTERNAL_LINK,

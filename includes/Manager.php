@@ -121,6 +121,9 @@ class Manager extends Worker {
 		}
 	}
 
+	/**
+	 * @param string $timerName
+	 */
 	public function onTimer( string $timerName ) {
 		$data = [
 			self::EVENT_TIMER => $timerName,
@@ -532,6 +535,10 @@ class Manager extends Worker {
 		}
 	}
 
+	/**
+	 * @param ConnectionInterface $connection
+	 * @param string $value
+	 */
 	public function onStorageMessage( ConnectionInterface $connection, string $value ) {
 		$this->debugLog( __FUNCTION__ );
 		$this->onMessage( $connection, $value );

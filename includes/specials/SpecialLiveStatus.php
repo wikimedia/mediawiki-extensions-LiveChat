@@ -10,10 +10,13 @@ class SpecialLiveStatus extends SpecialPage {
 		parent::__construct( 'LiveStatus', 'LiveChatManager' );
 	}
 
+	/**
+	 * @param string|null $subPage
+	 */
 	public function execute( $subPage ) {
 		$output = $this->getOutput();
 		$this->setHeaders();
-		$htmlTitle = wfMessage( 'livestatus' )->text();
+		$htmlTitle = $this->msg( 'livestatus' )->text();
 		$output->setPageTitle( $htmlTitle );
 		$output->setHTMLTitle( $htmlTitle );
 

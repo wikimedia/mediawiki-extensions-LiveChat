@@ -483,6 +483,10 @@ class ChatRoom extends Room {
 		return self::$dbr;
 	}
 
+	/**
+	 * @param User $user
+	 * @return bool
+	 */
 	protected function canUserPostReaction( User $user ) {
 		$options = $this->getOptions();
 		if ( empty( $options[self::O_PERM_CAN_POST_REACTION] ) ) {
