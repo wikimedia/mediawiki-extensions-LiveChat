@@ -4,6 +4,9 @@
 	"author": "[https://www.mediawiki.org/wiki/User:Pastakhov Pavel Astakhov]",
 	"description": "The LiveChat extension",
 	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.35.0"
+	},
 	"MessagesDirs": {
 		"LiveChat": [
 			"i18n"
@@ -128,7 +131,7 @@
 			"scripts": "widgets/SplitLayout.js",
 			"styles": "widgets/SplitLayout.less",
 			"dependencies": [
-				"jquery.ui.resizable",
+				"jquery.ui",
 				"ext.LiveChat.widgets"
 			],
 			"targets": [
@@ -185,8 +188,7 @@
 			"scripts": "widgets/MessageInput.js",
 			"styles": "widgets/MessageInput.less",
 			"dependencies": [
-				"ext.LiveChat.widgets",
-				"mediawiki.notify"
+				"ext.LiveChat.widgets"
 			],
 			"messages": [
 				"ext-livechat-messageinput-button-send",
