@@ -12,5 +12,7 @@
 	"ext-livechat-reaction-like": "like",
 	"ext-livechat-login-to-post-comments": "Please login to be able to post comments",
 	"ext-livechat-error-user-cannot-post-comments": "You cannot send messages to this chat",
-	"ext-livechat-error-user-cannot-post-reactions": "You cannot send reactions to this chat"
+	"ext-livechat-error-user-cannot-post-reactions": "You cannot send reactions to this chat",
+	"right-LiveChatManager": "Manage live chats",
+	"action-LiveChatManager": "manage live chats"
 }
