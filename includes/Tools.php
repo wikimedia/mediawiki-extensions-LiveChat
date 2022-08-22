@@ -2,6 +2,7 @@
 
 namespace LiveChat;
 
+use MediaWiki\MediaWikiServices;
 use Message;
 use MWException;
 use User;
@@ -14,7 +15,8 @@ class Tools {
 	 * @return Message
 	 */
 	public static function getMessage( $user, $key, ...$params ) {
-		$langCode = $user->getOption( 'language' );
+		$langCode = MediaWikiServices::getInstance()->getUserOptionsManager()
+			->getOption( $user, 'language' );
 		try {
 			$message = wfMessage( $key )->inLanguage( $langCode );
 		} catch ( MWException $e ) {
