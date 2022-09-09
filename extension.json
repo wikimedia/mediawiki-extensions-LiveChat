@@ -55,7 +55,7 @@
 			"scripts": "client.js",
 			"dependencies": [
 				"mediawiki.Uri",
-				"jquery.throttle-debounce",
+				"mediawiki.util",
 				"ext.LiveChat.visibilityjs"
 			],
 			"targets": [

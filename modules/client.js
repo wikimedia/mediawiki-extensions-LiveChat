@@ -163,7 +163,7 @@
 		}
 	} );
 
-	ping = $.debounce( pingDelay, function () {
+	ping = mw.util.debounce( pingDelay, function () {
 		if ( ws.readyState === WebSocket.OPEN && pool.length === 0 ) {
 			send( 'ping' );
 		} else {
