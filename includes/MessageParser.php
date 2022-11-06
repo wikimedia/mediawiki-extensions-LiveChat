@@ -116,7 +116,7 @@ class MessageParser {
 				if ( $text !== '' ) {
 					# Have link text, e.g. [http://domain.tld/some.link text]s
 					# Check for trail
-					list( $dtrail, $trail ) = Linker::splitTrail( $trail );
+					[ $dtrail, $trail ] = Linker::splitTrail( $trail );
 
 					// Excluding protocol-relative URLs may avoid many false positives.
 					if ( preg_match( '/^(?:' . wfUrlProtocolsWithoutProtRel() . ')/', $text ) ) {
