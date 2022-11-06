@@ -6,7 +6,7 @@
 
 	var roomListLayout = new mw.livechat.widgets.RoomListLayout();
 
-	$( document ).ready( function() {
+	$( function () {
 		$( '#mw-content-text' ).append( roomListLayout.$element );
 	} );
 

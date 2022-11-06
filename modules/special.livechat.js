@@ -8,7 +8,7 @@
 		uiLiveChatLayout = new mw.livechat.widgets.LiveChatLayout( { framed: false, padded: true } ),
 		uiSplitLayout = new mw.livechat.widgets.SplitLayout( { content: [uiUsersList, uiLiveChatLayout] } );
 
-	$( document ).ready( function() {
+	$( function () {
 		$( '#mw-content-text' ).append( uiSplitLayout.$element );
 	} );
 
