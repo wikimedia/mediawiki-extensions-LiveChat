@@ -38,7 +38,7 @@
 		this.$element.addClass( 'oo-ui-MessagesLayout' );
 
 		if ( config.scrollDownOnDocumentReady ) {
-			$( document ).ready( function() {
+			$( function () {
 				setTimeout( this.scrollDown, 1000 );
 			}.bind( this ) );
 		}
