@@ -3,6 +3,7 @@ namespace LiveChat;
 
 use Language;
 use Linker;
+use MediaWiki\MediaWikiServices;
 use Parser;
 use Sanitizer;
 use Title;
@@ -76,6 +77,7 @@ class MessageParser {
 	private function parseExternalLinks() {
 		/** @var Language $wgLang */
 		global $wgLang;
+		$langConverter = MediaWikiServices::getInstance()->getLanguageConverterFactory()->getLanguageConverter( $wgLang );
 
 		$key = 0;
 		while ( isset( $this->result[$key] ) ) {
@@ -120,7 +122,7 @@ class MessageParser {
 
 					// Excluding protocol-relative URLs may avoid many false positives.
 					if ( preg_match( '/^(?:' . wfUrlProtocolsWithoutProtRel() . ')/', $text ) ) {
-						$text = $wgLang->getConverter()->markNoConversion( $text );
+						$text = $langConverter->markNoConversion( $text );
 					}
 				}
 
