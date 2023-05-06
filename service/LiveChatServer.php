@@ -4,8 +4,8 @@ namespace LiveChat;
 
 use ConfigException;
 use FatalError;
-use Hooks;
 use Maintenance;
+use MediaWiki\MediaWikiServices;
 use MWException;
 use Workerman\Connection\ConnectionInterface;
 use Workerman\Worker;
@@ -121,7 +121,7 @@ class LiveChatServer extends Maintenance {
 			}
 		};
 
-		Hooks::run( 'BeforeLiveChatRunAllWorker', [ $this ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'BeforeLiveChatRunAllWorker', [ $this ] );
 
 		// Run worker
 		Worker::runAll();

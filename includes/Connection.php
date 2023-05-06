@@ -4,7 +4,7 @@ namespace LiveChat;
 
 use Exception;
 use FormatJson;
-use Hooks;
+use MediaWiki\MediaWikiServices;
 use MWDebug;
 use Title;
 use User;
@@ -210,7 +210,7 @@ class Connection {
 		}
 
 		try {
-			Hooks::run( 'LiveChatConnected', [ $this, $data ] );
+			MediaWikiServices::getInstance()->getHookContainer()->run( 'LiveChatConnected', [ $this, $data ] );
 		} catch ( Exception $e ) {
 			MWDebug::warning( $e->getMessage() );
 		}

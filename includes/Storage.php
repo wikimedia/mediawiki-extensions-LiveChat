@@ -1,7 +1,7 @@
 <?php
 namespace LiveChat;
 
-use Hooks;
+use MediaWiki\MediaWikiServices;
 use Workerman\Connection\ConnectionInterface;
 
 class Storage extends Worker {
@@ -21,7 +21,7 @@ class Storage extends Worker {
 	}
 
 	public function run() {
-		Hooks::run( 'LiveChatStorageInit', [ &$this->providers ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'LiveChatStorageInit', [ &$this->providers ] );
 
 		parent::run();
 	}
