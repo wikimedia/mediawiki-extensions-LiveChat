@@ -360,7 +360,7 @@ class ChatRoom extends Room {
 			'ORDER BY' => self::C_ID,
 		];
 		// TODO get user name from user table
-		$res = $dbr->select( self::TABLE, '*', $conds,  __METHOD__, $options );
+		$res = $dbr->select( self::TABLE, '*', $conds, __METHOD__, $options );
 		if ( !$res ) {
 			return;
 		}

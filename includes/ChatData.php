@@ -490,7 +490,7 @@ class ChatData {
 		}
 
 		// TODO get user name from user table
-		$res = $dbr->select( self::TABLE, '*', $conds,  __METHOD__ );
+		$res = $dbr->select( self::TABLE, '*', $conds, __METHOD__ );
 		if ( !$res ) {
 			return [];
 		}
@@ -611,14 +611,14 @@ class ChatData {
 	protected static function loadMessagesToCache( int $roomType, int $roomId ) {
 		self::debugLog( __FUNCTION__, $roomType, $roomId );
 		$roomCache = &self::getCache( [ $roomType, $roomId ] );
-		// if ( !$roomCache ) {
-			$roomCache = [
-				'messages' => [],
-				'parents' => [],
-				'children' => [],
-				'reactions' => [],
-			];
-		// }
+		// if ( !$roomCache ) { …
+		$roomCache = [
+			'messages' => [],
+			'parents' => [],
+			'children' => [],
+			'reactions' => [],
+		];
+		// … }
 
 		$dbr = self::getDBR();
 		$conds = [
@@ -630,7 +630,7 @@ class ChatData {
 			'ORDER BY' => self::C_ID,
 		];
 		// TODO get user name from user table
-		$res = $dbr->select( self::TABLE, '*', $conds,  __METHOD__, $options );
+		$res = $dbr->select( self::TABLE, '*', $conds, __METHOD__, $options );
 		if ( !$res ) {
 			return;
 		}
