@@ -26,10 +26,17 @@ class MessageParser {
 	/**
 	 * @var string
 	 */
+	private $mAbsoluteUrlProtocols;
+
+	/**
+	 * @var string
+	 */
 	private $mExtLinkBracketedRegex;
 
 	public function __construct() {
-		$this->mUrlProtocols = wfUrlProtocols();
+		$urlUtils = MediaWikiServices::getInstance()->getUrlUtils();
+		$this->mUrlProtocols = $urlUtils->validProtocols();
+		$this->mAbsoluteUrlProtocols = $urlUtils->validAbsoluteProtocols();
 		$this->mExtLinkBracketedRegex = '/\[(((?i)' . $this->mUrlProtocols . ')' .
 			Parser::EXT_LINK_ADDR .
 			Parser::EXT_LINK_URL_CLASS . '*)\p{Zs}*([^\]\\x00-\\x08\\x0a-\\x1F\\x{FFFD}]*?)\]/Su';
@@ -121,7 +128,7 @@ class MessageParser {
 					[ $dtrail, $trail ] = Linker::splitTrail( $trail );
 
 					// Excluding protocol-relative URLs may avoid many false positives.
-					if ( preg_match( '/^(?:' . wfUrlProtocolsWithoutProtRel() . ')/', $text ) ) {
+					if ( preg_match( '/^(?:' . $this->mAbsoluteUrlProtocols . ')/', $text ) ) {
 						$text = $langConverter->markNoConversion( $text );
 					}
 				}
@@ -143,7 +150,7 @@ class MessageParser {
 	}
 
 	public function parseFreeExternalLinks() {
-		$prots = wfUrlProtocolsWithoutProtRel();
+		$prots = $this->mAbsoluteUrlProtocols;
 		$urlChar = Parser::EXT_LINK_URL_CLASS;
 		$addr = Parser::EXT_LINK_ADDR;
 
