@@ -2,6 +2,7 @@
 
 namespace LiveChat;
 
+use MediaWiki\MediaWikiServices;
 use User;
 use wAvatar;
 use Wikimedia\Rdbms\Database;
@@ -468,7 +469,7 @@ class ChatRoom extends Room {
 	 */
 	public function getDBW() {
 		if ( !self::$dbw ) {
-			self::$dbw = wfGetDB( DB_PRIMARY );
+			self::$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		}
 		return self::$dbw;
 	}
@@ -478,7 +479,7 @@ class ChatRoom extends Room {
 	 */
 	public function getDBR() {
 		if ( !self::$dbr ) {
-			self::$dbr = wfGetDB( DB_REPLICA );
+			self::$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		}
 		return self::$dbr;
 	}

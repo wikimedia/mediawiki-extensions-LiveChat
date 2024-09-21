@@ -3,6 +3,7 @@ namespace LiveChat;
 
 use FormatJson;
 use InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
 use User;
 use wAvatar;
 use Wikimedia\Rdbms\Database;
@@ -575,7 +576,7 @@ class ChatData {
 	 */
 	protected static function getDBW() {
 		if ( !self::$dbw ) {
-			self::$dbw = wfGetDB( DB_PRIMARY );
+			self::$dbw = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_PRIMARY );
 		}
 		return self::$dbw;
 	}
@@ -585,7 +586,7 @@ class ChatData {
 	 */
 	protected static function getDBR() {
 		if ( !self::$dbr ) {
-			self::$dbr = wfGetDB( DB_REPLICA );
+			self::$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		}
 		return self::$dbr;
 	}
