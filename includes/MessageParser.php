@@ -2,11 +2,11 @@
 namespace LiveChat;
 
 use Language;
-use Linker;
+use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Parser;
 use Sanitizer;
-use Title;
 
 class MessageParser {
 	const TYPE_TEXT = 'text';
