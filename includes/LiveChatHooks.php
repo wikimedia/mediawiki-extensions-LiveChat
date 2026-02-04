@@ -86,7 +86,7 @@ class LiveChatHooks {
 	private static function getDomain() {
 		global $wgServer, $wgServerName;
 
-		$serverParts = wfParseUrl( $wgServer );
+		$serverParts = MediaWikiServices::getInstance()->getUrlUtils()->parse( $wgServer );
 		return $serverParts && isset( $serverParts['host'] ) ? $serverParts['host'] : $wgServerName;
 	}
 
