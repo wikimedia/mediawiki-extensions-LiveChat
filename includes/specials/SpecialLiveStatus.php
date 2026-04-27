@@ -7,7 +7,12 @@ use SpecialPage;
 class SpecialLiveStatus extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'LiveStatus', 'LiveChatManager' );
+		parent::__construct( 'LiveStatus' );
+	}
+
+	/** @inheritDoc */
+	public function getRestriction(): string {
+		return 'LiveChatManager';
 	}
 
 	/**
