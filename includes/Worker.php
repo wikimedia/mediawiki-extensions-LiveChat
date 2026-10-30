@@ -26,11 +26,11 @@ class Worker extends \Workerman\Worker {
 	public function run() {
 		self::debugLog( __FUNCTION__ );
 
-		$this->onWorkerStart = [ $this, 'onWorkerStart' ];
-		$this->onWorkerStop = [ $this, 'onWorkerStop' ];
-		$this->onMessage = [ $this, 'onMessage' ];
-		$this->onClose = [ $this, 'onClose' ];
-		$this->onConnect = [ $this, 'onConnect' ];
+		$this->onWorkerStart = $this->onWorkerStart( ... );
+		$this->onWorkerStop = $this->onWorkerStop( ... );
+		$this->onMessage = $this->onMessage( ... );
+		$this->onClose = $this->onClose( ... );
+		$this->onConnect = $this->onConnect( ... );
 
 		parent::run();
 	}

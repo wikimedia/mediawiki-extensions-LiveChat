@@ -456,9 +456,9 @@ class Room {
 		$this->debugLog( __FUNCTION__, $managerSocketName );
 		try {
 			$this->managerConnection = new AsyncTcpConnection( $managerSocketName );
-			$this->managerConnection->onMessage = [ $this, 'onManagerMessage' ];
-			$this->managerConnection->onClose = [ $this, 'onManagerClose' ];
-			$this->managerConnection->onError = [ $this, 'onManagerError' ];
+			$this->managerConnection->onMessage = $this->onManagerMessage( ... );
+			$this->managerConnection->onClose = $this->onManagerClose( ... );
+			$this->managerConnection->onError = $this->onManagerError( ... );
 			$this->managerConnection->connect();
 
 			$message += [

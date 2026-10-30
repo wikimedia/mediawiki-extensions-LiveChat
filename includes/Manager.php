@@ -85,15 +85,15 @@ class Manager extends Worker {
 
 	/** @inheritDoc */
 	public function run() {
-		$this->addCommandCallbacks( 'subscribe', [ $this, 'onSubscribeCommand' ] );
-		$this->addCommandCallbacks( 'unsubscribe', [ $this, 'onUnsubscribeCommand' ] );
-		$this->addCommandCallbacks( 'send', [ $this, 'onSendCommand' ] );
-		$this->addCommandCallbacks( 'status', [ $this, 'onStatusCommand' ] );
-		$this->addCommandCallbacks( 'get', [ $this, 'onGetCommand' ] );
-		$this->addCommandCallbacks( 'set', [ $this, 'onSetCommand' ] );
-		$this->addCommandCallbacks( 'insert', [ $this, 'onDatabaseCommand' ] );
-		$this->addCommandCallbacks( 'update', [ $this, 'onDatabaseCommand' ] );
-		$this->addCommandCallbacks( 'select', [ $this, 'onDatabaseCommand' ] );
+		$this->addCommandCallbacks( 'subscribe', $this->onSubscribeCommand( ... ) );
+		$this->addCommandCallbacks( 'unsubscribe', $this->onUnsubscribeCommand( ... ) );
+		$this->addCommandCallbacks( 'send', $this->onSendCommand( ... ) );
+		$this->addCommandCallbacks( 'status', $this->onStatusCommand( ... ) );
+		$this->addCommandCallbacks( 'get', $this->onGetCommand( ... ) );
+		$this->addCommandCallbacks( 'set', $this->onSetCommand( ... ) );
+		$this->addCommandCallbacks( 'insert', $this->onDatabaseCommand( ... ) );
+		$this->addCommandCallbacks( 'update', $this->onDatabaseCommand( ... ) );
+		$this->addCommandCallbacks( 'select', $this->onDatabaseCommand( ... ) );
 
 		parent::run();
 	}
@@ -110,7 +110,7 @@ class Manager extends Worker {
 			self::TIMER_ONE_MINUTE => 60.6,
 		];
 		foreach ( $timerIntervals as $timer => $interval ) {
-			$timerId = Timer::add( $interval, [ $this, 'onTimer' ], [ $timer ] );
+			$timerId = Timer::add( $interval, $this->onTimer( ... ), [ $timer ] );
 			if ( $timerId ) {
 				$this->timers[] = $timerId;
 				self::debugLog( __FUNCTION__, 'added timer', $timer, (string)$interval );
@@ -525,9 +525,9 @@ class Manager extends Worker {
 		$this->debugLog( __FUNCTION__, $socketName );
 		try {
 			$this->storageConnection = new AsyncTcpConnection( $socketName );
-			$this->storageConnection->onMessage = [ $this, 'onStorageMessage' ];
-			$this->storageConnection->onClose = [ $this, 'onStorageClose' ];
-			$this->storageConnection->onError = [ $this, 'onStorageError' ];
+			$this->storageConnection->onMessage = $this->onStorageMessage( ... );
+			$this->storageConnection->onClose = $this->onStorageClose( ... );
+			$this->storageConnection->onError = $this->onStorageError( ... );
 			$this->storageConnection->connect();
 		} catch ( Exception $e ) {
 			$this->debugLog( __FUNCTION__, 'ERROR', $e->getMessage() );
